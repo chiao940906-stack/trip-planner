@@ -1,4 +1,7 @@
+// 1️⃣ 讀取 localStorage 裡的行程
 let trips = JSON.parse(localStorage.getItem("trips")) || [];
+
+// 2️⃣ 新增行程
 function addTrip() {
   const time = document.getElementById("time").value;
   const title = document.getElementById("title").value;
@@ -28,6 +31,7 @@ function addTrip() {
   document.getElementById("place").value = "";
 }
 
+// 3️⃣ 顯示所有行程
 function renderTrips() {
   const list = document.getElementById("tripList");
   list.innerHTML = "";
@@ -49,10 +53,13 @@ function renderTrips() {
   });
 }
 
+// 4️⃣ 刪除行程
 function deleteTrip(index) {
   trips.splice(index, 1);
   localStorage.setItem("trips", JSON.stringify(trips));
   renderTrips();
 }
 
+// 5️⃣ 一開網頁就顯示舊行程
 renderTrips();
+
