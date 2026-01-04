@@ -2,45 +2,39 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>我的行程規劃</title>
+  <title>行程規劃</title>
 
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- 自己的 CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-<div class="container my-5">
-  <h1 class="text-center mb-4">🗓️ 我的行程規劃</h1>
+<body class="bg-light">
 
-  <!-- 行程輸入表單 -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4">🗓 行程規劃</h2>
+
+  <!-- 新增行程 -->
   <div class="card p-4 mb-4">
     <h5>新增行程</h5>
 
-    <!-- 日期+時間 -->
-    <input type="datetime-local" id="datetime" class="form-control mb-2">
-
-    <!-- 行程內容 -->
-    <input type="text" id="content" class="form-control mb-2" placeholder="行程內容">
-
-    <!-- 地點 -->
+    <input type="time" id="time" class="form-control mb-2">
+    <input type="text" id="title" class="form-control mb-2" placeholder="行程內容">
     <input type="text" id="place" class="form-control mb-3" placeholder="地點">
 
     <button class="btn btn-primary w-100" onclick="addTrip()">新增行程</button>
   </div>
 
- <!-- 行程列表 -->
-<div class="card p-4">
-  <!-- 可點擊標題 -->
-  <h5>
-    <button class="btn btn-link p-0" onclick="alert('這裡是你的行程列表')">行程列表</button>
-  </h5>
-  <ul id="tripList" class="list-group"></ul>
+  <!-- 行程列表 -->
+  <div class="card p-4">
+    <h5>行程列表</h5>
+    <ul id="tripList" class="list-group"></ul>
+  </div>
 </div>
 
-<script src="js/script.js"></script>
+<!-- JavaScript -->
+<script src="script.js"></script>
 </body>
 </html>
-
