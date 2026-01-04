@@ -9,3 +9,12 @@ body {
 h2 {
   font-weight: bold;
 }
+
+.list-group-item {
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
