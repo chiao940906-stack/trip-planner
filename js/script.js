@@ -57,3 +57,4 @@ function deleteTrip(index) {
 
 // 一開網頁就顯示舊行程
 renderTrips();
+
