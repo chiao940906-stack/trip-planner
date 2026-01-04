@@ -1,37 +1,58 @@
+let trips = JSON.parse(localStorage.getItem("trips")) || [];
 function addTrip() {
-  const datetime = document.getElementById("datetime").value;
-  const content = document.getElementById("content").value;
+  const time = document.getElementById("time").value;
+  const title = document.getElementById("title").value;
   const place = document.getElementById("place").value;
 
-  if (datetime === "" || content === "" || place === "") {
-    alert("請填寫所有欄位");
+  if (time === "" || title === "" || place === "") {
+    alert("請填寫完整行程");
     return;
   }
 
-  const list = document.getElementById("tripList");
-
-  const dt = new Date(datetime);
-  const formattedDate = dt.getFullYear() + "-" +
-                        String(dt.getMonth()+1).padStart(2,'0') + "-" +
-                        String(dt.getDate()).padStart(2,'0') + " " +
-                        String(dt.getHours()).padStart(2,'0') + ":" +
-                        String(dt.getMinutes()).padStart(2,'0');
-
-  const li = document.createElement("li");
-  li.className = "list-group-item";
-  li.innerText = formattedDate + "｜" + content + "（" + place + "）";
-
-  // 點擊行程可以刪除
-  li.onclick = function() {
-    if (confirm("確定要刪除這個行程嗎？")) {
-      list.removeChild(li);
-    }
+  const trip = {
+    time: time,
+    title: title,
+    place: place
   };
 
-  list.appendChild(li);
+  trips.push(trip);
+
+  // 存進 localStorage
+  localStorage.setItem("trips", JSON.stringify(trips));
+
+  renderTrips();
 
   // 清空輸入框
-  document.getElementById("datetime").value = "";
-  document.getElementById("content").value = "";
+  document.getElementById("time").value = "";
+  document.getElementById("title").value = "";
   document.getElementById("place").value = "";
 }
+
+function renderTrips() {
+  const list = document.getElementById("tripList");
+  list.innerHTML = "";
+
+  trips.forEach((trip, index) => {
+    const li = document.createElement("li");
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
+
+    li.innerHTML = `
+      <div>
+        <strong>${trip.time}</strong> ｜ ${trip.title}（${trip.place}）
+      </div>
+      <button class="btn btn-sm btn-danger" onclick="deleteTrip(${index})">
+        刪除
+      </button>
+    `;
+
+    list.appendChild(li);
+  });
+}
+
+function deleteTrip(index) {
+  trips.splice(index, 1);
+  localStorage.setItem("trips", JSON.stringify(trips));
+  renderTrips();
+}
+
+renderTrips();
