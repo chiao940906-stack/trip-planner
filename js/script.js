@@ -1,23 +1,19 @@
-// 1️⃣ 讀取 localStorage 裡的行程
+// 讀取 localStorage 裡的行程
 let trips = JSON.parse(localStorage.getItem("trips")) || [];
 
-// 2️⃣ 新增行程
+// 新增行程
 function addTrip() {
+  const date = document.getElementById("date").value;
   const time = document.getElementById("time").value;
   const title = document.getElementById("title").value;
   const place = document.getElementById("place").value;
 
-  if (time === "" || title === "" || place === "") {
+  if (!date || !time || !title || !place) {
     alert("請填寫完整行程");
     return;
   }
 
-  const trip = {
-    time: time,
-    title: title,
-    place: place
-  };
-
+  const trip = { date, time, title, place };
   trips.push(trip);
 
   // 存進 localStorage
@@ -26,12 +22,13 @@ function addTrip() {
   renderTrips();
 
   // 清空輸入框
+  document.getElementById("date").value = "";
   document.getElementById("time").value = "";
   document.getElementById("title").value = "";
   document.getElementById("place").value = "";
 }
 
-// 3️⃣ 顯示所有行程
+// 顯示所有行程
 function renderTrips() {
   const list = document.getElementById("tripList");
   list.innerHTML = "";
@@ -42,24 +39,21 @@ function renderTrips() {
 
     li.innerHTML = `
       <div>
-        <strong>${trip.time}</strong> ｜ ${trip.title}（${trip.place}）
+        <strong>${trip.date}</strong> ｜ <strong>${trip.time}</strong> ｜ ${trip.title}（${trip.place}）
       </div>
-      <button class="btn btn-sm btn-danger" onclick="deleteTrip(${index})">
-        刪除
-      </button>
+      <button class="btn btn-sm btn-danger" onclick="deleteTrip(${index})">刪除</button>
     `;
 
     list.appendChild(li);
   });
 }
 
-// 4️⃣ 刪除行程
+// 刪除行程
 function deleteTrip(index) {
   trips.splice(index, 1);
   localStorage.setItem("trips", JSON.stringify(trips));
   renderTrips();
 }
 
-// 5️⃣ 一開網頁就顯示舊行程
+// 一開網頁就顯示舊行程
 renderTrips();
-
